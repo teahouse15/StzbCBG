@@ -36,6 +36,7 @@ class MainWindow(QWidget):
         # 设置主布局
         self.setLayout(main_layout)
 
+    # 查看账号
     def display_text(self):
         text = self.input_field.text()
 
