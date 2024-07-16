@@ -16,13 +16,13 @@ class MainWindow(QWidget):
         h_layout = QHBoxLayout()
 
         # 创建输入框和按钮
-        self.input_field = QLineEdit(self)
-        self.input_field.setPlaceholderText("请输入内容")
-        self.confirm_button = QPushButton("确认", self)
+        self.url_text = QLineEdit(self)
+        self.url_text.setPlaceholderText("请输入内容")
+        self.confirm_button = QPushButton("查询", self)
         self.confirm_button.clicked.connect(self.display_text)
 
         # 将输入框和按钮添加到水平布局
-        h_layout.addWidget(self.input_field)
+        h_layout.addWidget(self.url_text)
         h_layout.addWidget(self.confirm_button)
 
         # 创建输出信息的文本框
@@ -38,7 +38,7 @@ class MainWindow(QWidget):
 
     # 查看账号
     def display_text(self):
-        text = self.input_field.text()
+        url = self.input_field.text()
 
     def center(self):
         screen = QApplication.primaryScreen().availableGeometry()
