@@ -1,200 +1,52 @@
-class AccountGetter:
+import sys
+from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QTextEdit
+from PySide6.QtCore import Qt
 
-
-
+class MainWindow(QWidget):
     def __init__(self):
-        return
+        super().__init__()
+        self.setWindowTitle("PySide6 简单窗体")
+        self.resize(400, 300)
+        self.center()
 
+        # 创建主布局
+        main_layout = QVBoxLayout()
 
+        # 创建水平布局
+        h_layout = QHBoxLayout()
 
+        # 创建输入框和按钮
+        self.input_field = QLineEdit(self)
+        self.input_field.setPlaceholderText("请输入内容")
+        self.confirm_button = QPushButton("确认", self)
+        self.confirm_button.clicked.connect(self.display_text)
 
+        # 将输入框和按钮添加到水平布局
+        h_layout.addWidget(self.input_field)
+        h_layout.addWidget(self.confirm_button)
 
+        # 创建输出信息的文本框
+        self.output_field = QTextEdit(self)
+        self.output_field.setReadOnly(True)
 
-class Account:
-    def __init__(self, is_show_alipay_privilege, equip_desc, create_time_desc, has_trade_history, is_seller,
-                 allow_taken_time, is_equip_trying, appointed_roleid, server_name, has_sim_trade_history,
-                 highlights, kindid, area_name, support_video_preview, alipay_info, equip_locked,
-                 search_type, equip_count, equip_name, is_set_general, selling_time, status,
-                 offsale_then_take_back, support_3d_preview, can_bid_random_draw, create_time,
-                 equipid, buyer_fee_list, fair_show_end_time, allow_bargain, min_buy_level,
-                 equip_detail_url, allow_fair_show_buy, equip_lock_time_desc, fair_show_poundage_origin,
-                 desc_sumup_short, cross_buy_serverid_list, is_support_kol, equip_onsale_version,
-                 diy_desc, random_draw_finish_time, coupon_data, allow_cross_buy, block_diy_description,
-                 tranx_goods_sn, joined_seller_activity, fair_show_poundage_desc, storage_type,
-                 is_show_special_highlight, collect_num, appointed_data, level_desc,
-                 selling_time_ago_desc, is_support_instalment, allow_urs_bargain, allow_appoint,
-                 equip_type_inspection_view_url, expire_remain_seconds, show_open_bargain_button,
-                 show_transfer_to_combat_area_tips, pass_fair_show, is_random_draw_period, game_ordersn,
-                 price_explanation, platform_type, eid, equip_server_sn, is_equip_can_try,
-                 allow_multi_order, poundage_list, equip_level, is_weijianding, product, equip_type,
-                 price, other_info, status_desc, equip_type_desc, unpaid_user_order, expire_time,
-                 serverid, is_my_equip, icon, fair_show_poundage, is_owner, complex_highlights_v2,
-                 game_compete_serverid, activity_info, open_fair_show_end_notice, game_channel):
-        self.is_show_alipay_privilege = is_show_alipay_privilege  # 是否显示支付宝特权
-        self.equip_desc = equip_desc
-        self.create_time_desc = create_time_desc  # 创建时间描述
-        self.has_trade_history = has_trade_history  # 是否有交易历史
-        self.is_seller = is_seller  # 是否为卖家
-        self.allow_taken_time = allow_taken_time  # 允许的时间戳
-        self.is_equip_trying = is_equip_trying  # 是否正在试装备
-        self.appointed_roleid = appointed_roleid  # 指定角色ID
-        self.server_name = server_name  # 服务器名称
-        self.has_sim_trade_history = has_sim_trade_history  # 是否有类似交易历史
-        self.highlights = highlights  # 亮点信息
-        self.kindid = kindid  # 类型ID
-        self.area_name = area_name  # 区域名称
-        self.support_video_preview = support_video_preview  # 是否支持视频预览
-        self.alipay_info = alipay_info  # 支付宝信息
-        self.equip_locked = equip_locked  # 装备是否锁定
-        self.search_type = search_type  # 搜索类型
-        self.equip_count = equip_count  # 装备数量
-        self.equip_name = equip_name  # 装备名称
-        self.is_set_general = is_set_general  # 是否设置为将军
-        self.selling_time = selling_time  # 销售时间
-        self.status = status  # 状态
-        self.offsale_then_take_back = offsale_then_take_back  # 下架后是否撤回
-        self.support_3d_preview = support_3d_preview  # 是否支持3D预览
-        self.can_bid_random_draw = can_bid_random_draw  # 是否可以随机抽奖
-        self.create_time = create_time  # 创建时间
-        self.equipid = equipid  # 装备ID
-        self.buyer_fee_list = buyer_fee_list  # 买家费用列表
-        self.fair_show_end_time = fair_show_end_time  # 公平展示结束时间
-        self.allow_bargain = allow_bargain  # 是否允许还价
-        self.min_buy_level = min_buy_level  # 最低购买等级
-        self.equip_detail_url = equip_detail_url  # 装备详情链接
-        self.allow_fair_show_buy = allow_fair_show_buy  # 是否允许公平展示购买
-        self.equip_lock_time_desc = equip_lock_time_desc  # 装备锁定时间描述
-        self.fair_show_poundage_origin = fair_show_poundage_origin  # 公平展示手续费
-        self.desc_sumup_short = desc_sumup_short  # 简短描述总结
-        self.cross_buy_serverid_list = cross_buy_serverid_list  # 跨服购买服务器ID列表
-        self.is_support_kol = is_support_kol  # 是否支持KOL
-        self.equip_onsale_version = equip_onsale_version  # 装备上架版本
-        self.diy_desc = diy_desc  # DIY描述
-        self.random_draw_finish_time = random_draw_finish_time  # 随机抽奖完成时间
-        self.coupon_data = coupon_data  # 优惠券数据
-        self.allow_cross_buy = allow_cross_buy  # 是否允许跨服购买
-        self.block_diy_description = block_diy_description  # 是否阻止DIY描述
-        self.tranx_goods_sn = tranx_goods_sn  # 交易商品编号
-        self.joined_seller_activity = joined_seller_activity  # 是否参与卖家活动
-        self.fair_show_poundage_desc = fair_show_poundage_desc  # 公平展示手续费描述
-        self.storage_type = storage_type  # 存储类型
-        self.is_show_special_highlight = is_show_special_highlight  # 是否显示特殊亮点
-        self.collect_num = collect_num  # 收藏数量
-        self.appointed_data = appointed_data  # 指定数据
-        self.level_desc = level_desc  # 等级描述
-        self.selling_time_ago_desc = selling_time_ago_desc  # 销售时间描述
-        self.is_support_instalment = is_support_instalment  # 是否支持分期付款
-        self.allow_urs_bargain = allow_urs_bargain  # 是否允许URS还价
-        self.allow_appoint = allow_appoint  # 是否允许预约
-        self.equip_type_inspection_view_url = equip_type_inspection_view_url  # 装备类型检查视图链接
-        self.expire_remain_seconds = expire_remain_seconds  # 剩余过期时间（秒）
-        self.show_open_bargain_button = show_open_bargain_button  # 是否显示打开还价按钮
-        self.show_transfer_to_combat_area_tips = show_transfer_to_combat_area_tips  # 是否显示转移到战斗区提示
-        self.pass_fair_show = pass_fair_show  # 是否通过公平展示
-        self.is_random_draw_period = is_random_draw_period  # 是否为随机抽奖期
-        self.game_ordersn = game_ordersn  # 游戏订单编号
-        self.price_explanation = price_explanation  # 价格说明
-        self.platform_type = platform_type  # 平台类型
-        self.eid = eid  # 事件ID
-        self.equip_server_sn = equip_server_sn  # 装备服务器编号
-        self.is_equip_can_try = is_equip_can_try  # 装备是否可以试用
-        self.allow_multi_order = allow_multi_order  # 是否允许多订单
-        self.poundage_list = poundage_list  # 手续费列表
-        self.equip_level = equip_level  # 装备等级
-        self.is_weijianding = is_weijianding  # 是否为未鉴定
-        self.product = product  # 产品
-        self.equip_type = equip_type  # 装备类型
-        self.price = price  # 价格
-        self.other_info = other_info  # 其他信息
-        self.status_desc = status_desc  # 状态描述
-        self.equip_type_desc = equip_type_desc  # 装备类型描述
-        self.unpaid_user_order = unpaid_user_order  # 未支付用户订单
-        self.expire_time = expire_time  # 过期时间
-        self.serverid = serverid  # 服务器ID
-        self.is_my_equip = is_my_equip  # 是否为我的装备
-        self.icon = icon  # 图标
-        self.fair_show_poundage = fair_show_poundage  # 公平展示手续费
-        self.is_owner = is_owner  # 是否为拥有者
-        self.complex_highlights_v2 = complex_highlights_v2  # 复杂亮点V2
-        self.game_compete_serverid = game_compete_serverid  # 游戏竞争服务器ID
-        self.activity_info = activity_info  # 活动信息
-        self.open_fair_show_end_notice = open_fair_show_end_notice  # 是否打开公平展示结束通知
-        self.game_channel = game_channel  # 游戏渠道
+        # 将水平布局和输出信息文本框添加到主布局
+        main_layout.addLayout(h_layout)
+        main_layout.addWidget(self.output_field)
 
-    def __repr__(self):
-        return f"<Account(name={self.server_name}, status={self.status_desc})>"
+        # 设置主布局
+        self.setLayout(main_layout)
 
-class Hero:
-    country_list = ['汉', '魏', '蜀', '吴', '群', '晋']
-    hero_type_advance_list = {'12': '重步兵', '22': '长枪兵', '13': '重骑兵',
-                              '23': '轻骑兵', '43': '铁骑兵', '11': '长弓兵',
-                              '21': '弩兵', '32': '禁卫', '31': '死士',
-                              '52': '蛮兵'}
-    hero_type_list = ['弓兵', '步兵', '骑兵']
+    def display_text(self):
+        text = self.input_field.text()
 
-    def __init__(self, hit_range, hero_type_advance, name, cfg_hero_type_availible, awake_state, country,
-                 card_border, is_season_card, advance_num, hero_type_availible, hero_type, dynamic_icon,
-                 is_support, cost, season, policy_awake_state, icon_hero_id, hero_features, quality,
-                 army_facade, hero_id):
-        # 攻击距离
-        self.hit_range = hit_range
-        self.hero_type_advance = hero_type_advance
-        # 武将名称
-        self.name = name
-        # 可以转的兵种
-        self.cfg_hero_type_availible = cfg_hero_type_availible
-        self.awake_state = awake_state
-        # 势力
-        self.country = country
-        # 卡框
-        self.card_border = card_border
-        self.is_season_card = is_season_card
-        # 红度
-        self.advance_num = advance_num
-        # 已经转的兵种
-        self.hero_type_availible = hero_type_availible
-        # 兵种
-        self.hero_type = hero_type
-        self.dynamic_icon = dynamic_icon
-        self.is_support = is_support
-        # 花费
-        self.cost = cost
-        self.season = season
-        self.policy_awake_state = policy_awake_state
-        # 武将图像ID
-        self.icon_hero_id = icon_hero_id
-        self.hero_features = hero_features
-        # 星级
-        self.quality = quality
-        self.army_facade = army_facade
-        # 武将ID
-        self.hero_id = hero_id
+    def center(self):
+        screen = QApplication.primaryScreen().availableGeometry()
+        window_geometry = self.frameGeometry()
+        window_geometry.moveCenter(screen.center())
+        self.move(window_geometry.topLeft())
 
-    def display_info(self):
-        info = (
-            f"攻击距离: {self.hit_range}\n"
-            f"进阶兵种: {self.hero_type_advance}\n"
-            f"武将名称: {self.name}\n"
-            f"可以转的兵种: {self.cfg_hero_type_availible}\n"
-            f"觉醒状态: {self.awake_state}\n"
-            f"势力: {self.country_list[int(self.country) - 1]}\n"
-            f"卡框: {self.card_border}\n"
-            f"赛季卡: {'是' if self.is_season_card else '否'}\n"
-            f"红度: {self.advance_num}\n"
-            f"已经转的兵种: {self.hero_type_availible}\n"
-            f"兵种: {self.hero_type}\n"
-            f"动态图标: {self.dynamic_icon}\n"
-            f"支援: {'是' if self.is_support else '否'}\n"
-            f"花费: {self.cost}\n"
-            f"赛季: {self.season}\n"
-            f"政策觉醒状态: {self.policy_awake_state}\n"
-            f"武将图像ID: {self.icon_hero_id}\n"
-            f"武将特征: {self.hero_features}\n"
-            f"星级: {self.quality}\n"
-            f"军队外观: {self.army_facade}\n"
-            f"武将ID: {self.hero_id}\n"
-        )
-        return info
-
-    def __repr__(self):
-        return f"Hero(name={self.name}, hero_id={self.hero_id})"
+if __name__ == "__main__":
+    app = QApplication(sys.argv)
+    window = MainWindow()
+    window.show()
+    sys.exit(app.exec())
