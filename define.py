@@ -1,3 +1,6 @@
+from typing import List, Any, Optional
+
+
 class AccountGetter:
 
 
@@ -124,6 +127,29 @@ class Account:
     def __repr__(self):
         return f"<Account(name={self.server_name}, status={self.status_desc})>"
 
+# 定义表示装备信息的 Gear 类
+class Gear:
+    def __init__(self, advance: int, next_trade_time: int, name: str, level: int, equip_condition: List[str],
+                 is_defective: int, feature: List[Any], feature_id: int, gear_id: int, show_gear_id: int,
+                 skillInfo: List[List[Any]], phase: int, heroId: int, level_type: int, is_bind: int, is_confirm: int):
+        self.advance = advance  # 装备的进阶等级
+        self.next_trade_time = next_trade_time  # 下次交易时间
+        self.name = name  # 装备名称
+        self.level = level  # 装备等级
+        self.equip_condition = equip_condition  # 装备条件
+        self.is_defective = is_defective  # 是否为残次品
+        self.feature = feature  # 装备特性
+        self.feature_id = feature_id  # 特性ID
+        self.gear_id = gear_id  # 装备ID
+        self.show_gear_id = show_gear_id  # 展示的装备ID
+        self.skillInfo = skillInfo  # 技能信息
+        self.phase = phase  # 阶段
+        self.heroId = heroId  # 英雄ID
+        self.level_type = level_type  # 等级类型
+        self.is_bind = is_bind  # 是否绑定
+        self.is_confirm = is_confirm  # 是否确认
+
+
 class Hero:
     country_list = ['汉', '魏', '蜀', '吴', '群', '晋']
     hero_type_advance_list = {'12': '重步兵', '22': '长枪兵', '13': '重骑兵',
@@ -132,43 +158,37 @@ class Hero:
                               '52': '蛮兵'}
     hero_type_list = ['弓兵', '步兵', '骑兵']
 
-    def __init__(self, hit_range, hero_type_advance, name, cfg_hero_type_availible, awake_state, country,
-                 card_border, is_season_card, advance_num, hero_type_availible, hero_type, dynamic_icon,
-                 is_support, cost, season, policy_awake_state, icon_hero_id, hero_features, quality,
-                 army_facade, hero_id):
-        # 攻击距离
-        self.hit_range = hit_range
-        self.hero_type_advance = hero_type_advance
-        # 武将名称
-        self.name = name
-        # 可以转的兵种
-        self.cfg_hero_type_availible = cfg_hero_type_availible
-        self.awake_state = awake_state
-        # 势力
-        self.country = country
-        # 卡框
-        self.card_border = card_border
-        self.is_season_card = is_season_card
-        # 红度
-        self.advance_num = advance_num
-        # 已经转的兵种
-        self.hero_type_availible = hero_type_availible
-        # 兵种
-        self.hero_type = hero_type
-        self.dynamic_icon = dynamic_icon
-        self.is_support = is_support
-        # 花费
-        self.cost = cost
-        self.season = season
-        self.policy_awake_state = policy_awake_state
-        # 武将图像ID
-        self.icon_hero_id = icon_hero_id
-        self.hero_features = hero_features
-        # 星级
-        self.quality = quality
-        self.army_facade = army_facade
-        # 武将ID
-        self.hero_id = hero_id
+
+
+
+
+    def __init__(self, hit_range: int, hero_type_advance: int, dynamic_icon: int, card_border: str, hero_type: int,
+                 is_support: bool, cost: float, quality: int, awake_state: int, is_season_card: int, hero_id: int,
+                 gear: Optional[Gear], season: str, advance_num: int, policy_awake_state: int, name: str,
+                 army_facade: List[Any], country: int, cfg_hero_type_availible: List[int], hero_type_availible: List[int],
+                 icon_hero_id: int, hero_features: int):
+        self.hit_range = hit_range  # 攻击范围
+        self.hero_type_advance = hero_type_advance  # 英雄类型进阶
+        self.dynamic_icon = dynamic_icon  # 动态图标
+        self.card_border = card_border  # 卡片边框
+        self.hero_type = hero_type  # 英雄类型
+        self.is_support = is_support  # 是否为支援英雄
+        self.cost = cost  # 成本
+        self.quality = quality  # 品质
+        self.awake_state = awake_state  # 觉醒状态
+        self.is_season_card = is_season_card  # 是否为季节卡
+        self.hero_id = hero_id  # 英雄ID
+        self.gear = gear  # 装备信息，允许为 None
+        self.season = season  # 季节
+        self.advance_num = advance_num  # 进阶次数
+        self.policy_awake_state = policy_awake_state  # 策略觉醒状态
+        self.name = name  # 英雄名称
+        self.army_facade = army_facade  # 军队外观
+        self.country = country  # 国家
+        self.cfg_hero_type_availible = cfg_hero_type_availible  # 配置的可用英雄类型
+        self.hero_type_availible = hero_type_availible  # 可用的英雄类型
+        self.icon_hero_id = icon_hero_id  # 图标英雄ID
+        self.hero_features = hero_features  # 英雄特性
 
     def display_info(self):
         info = (
@@ -198,3 +218,4 @@ class Hero:
 
     def __repr__(self):
         return f"Hero(name={self.name}, hero_id={self.hero_id})"
+

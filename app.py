@@ -1,11 +1,15 @@
 import sys
 from PySide6.QtWidgets import QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QTextEdit
 from PySide6.QtCore import Qt
+import requests
+import funcs
+
+
 
 class MainWindow(QWidget):
     def __init__(self):
         super().__init__()
-        self.setWindowTitle("PySide6 简单窗体")
+        self.setWindowTitle("藏宝阁账号查询")
         self.resize(400, 300)
         self.center()
 
@@ -38,7 +42,14 @@ class MainWindow(QWidget):
 
     # 查看账号
     def display_text(self):
-        url = self.input_field.text()
+        url = self.url_text.text()
+        ordersn = funcs.get_account_ordersn(url)
+
+
+
+        self.output_field.setText(ordersn)
+
+
 
     def center(self):
         screen = QApplication.primaryScreen().availableGeometry()
