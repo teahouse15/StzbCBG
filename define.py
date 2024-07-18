@@ -158,10 +158,6 @@ class Hero:
                               '52': '蛮兵'}
     hero_type_list = ['弓兵', '步兵', '骑兵']
 
-
-
-
-
     def __init__(self, hit_range: int, hero_type_advance: int, dynamic_icon: int, card_border: str, hero_type: int,
                  is_support: bool, cost: float, quality: int, awake_state: int, is_season_card: int, hero_id: int,
                  gear: Optional[Gear], season: str, advance_num: int, policy_awake_state: int, name: str,
@@ -179,7 +175,7 @@ class Hero:
         self.is_season_card = is_season_card  # 是否为季节卡
         self.hero_id = hero_id  # 英雄ID
         self.gear = gear  # 装备信息，允许为 None
-        self.season = season  # 季节
+        self.season = season  # 赛季
         self.advance_num = advance_num  # 进阶次数
         self.policy_awake_state = policy_awake_state  # 策略觉醒状态
         self.name = name  # 英雄名称
@@ -189,6 +185,16 @@ class Hero:
         self.hero_type_availible = hero_type_availible  # 可用的英雄类型
         self.icon_hero_id = icon_hero_id  # 图标英雄ID
         self.hero_features = hero_features  # 英雄特性
+
+    def __getitem__(self, key):
+        return getattr(self, key)
+
+    def __setitem__(self, key, value):
+        setattr(self, key, value)
+
+    def get_country(self):
+        return self.country_list[int(self.country) - 1]
+
 
     def display_info(self):
         info = (
