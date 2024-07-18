@@ -14,6 +14,11 @@ def close_window():
     os.kill(os.getpid(), 9)  # 结束进程的示例方法，可根据实际情况调整
     return '', 204
 
+@app.route('/get_pic', methods=['GET'])
+def get_pic():
+    # 在这里处理关闭窗口和结束进程的操作
+    return '101', 2040
+
 
 if __name__ == '__main__':
     # Start Flask app in a separate thread
@@ -21,5 +26,5 @@ if __name__ == '__main__':
     threading.Thread(target=app.run, kwargs={'debug': False}).start()
 
     # Open a webview window to display Flask app
-    webview.create_window("My Flask App", "http://127.0.0.1:5000", frameless=True)
+    webview.create_window("My Flask App", "http://127.0.0.1:5000", height=800, width=1100, frameless=True)
     webview.start()

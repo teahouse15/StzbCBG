@@ -56,6 +56,17 @@
                 console.error('Error:', error);
             });
         }
+
+        function get_pic() {
+            fetch('/get_pic', {
+                method: 'GET'
+            }).then(response => {
+                // 处理响应
+                alert(response.text)
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
     </script>
     <title>App Title</title>
 </head>
@@ -78,5 +89,7 @@
 
     <h1>Close Window Example</h1>
     <button onclick="closeWindow()">Close Window and Exit</button>
+
+    <img src="../static/res/cards/medium/hero/card_medium_100001.jpg">
 </body>
 </html>
