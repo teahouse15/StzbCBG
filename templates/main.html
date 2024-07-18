@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 添加CSS样式 -->
+    <style>
+        /* 定义一个包含链接的容器，使其居中并分散布局 */
+        .link-container {
+            display: flex;
+            justify-content: space-between; /* 使链接在容器内水平分散 */
+            align-items: center; /* 使链接垂直居中 */
+            width: 100%;
+            max-width: 600px; /* 设置最大宽度以适应不同屏幕尺寸 */
+            margin: 0 auto; /* 在页面中央对齐容器 */
+            padding: 20px 0; /* 上下增加间距 */
+        }
+
+        /* 定义链接的基本样式 */
+        .link-item {
+            padding: 10px 15px; /* 内边距，提供点击区域 */
+            border-radius: 4px; /* 圆角效果 */
+            text-decoration: none; /* 去除默认下划线 */
+            color: white; /* 文字颜色 */
+            font-weight: bold; /* 加粗字体 */
+            transition: background-color 0.3s ease; /* 添加平滑背景色过渡效果 */
+        }
+
+        /* 分别为三个链接设置不同的背景颜色 */
+        .link-item.load-model {
+            background-color: #e74c3c; /* 红色 */
+        }
+
+        .link-item.input-action {
+            background-color: #2ecc71; /* 绿色 */
+        }
+
+        .link-item.output-action {
+            background-color: #3498db; /* 蓝色 */
+        }
+    </style>
+
+    <script>
+        function closeWindow() {
+            fetch('/close_window', {
+                method: 'POST'
+            }).then(response => {
+                // 处理响应
+                if (response.status === 204) {
+                    window.close();  // 关闭窗口
+                } else {
+                    console.error('Failed to close window');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+    <title>App Title</title>
+</head>
+<body>
+
+    <!-- 创建一个包含三个链接的 Flexbox 容器 -->
+    <div class="link-container">
+        <!-- 第一个链接，指向 'load_model' 页面 -->
+        <a href="#" class="link-item load-model">加载模型</a>
+
+        <!-- 第二个链接，指向 'input' 页面 -->
+        <a href="#" class="link-item input-action">输入</a>
+
+        <!-- 第三个链接，指向 'output' 页面 -->
+        <a href="#" class="link-item output-action">输出</a>
+    </div>
+
+    <!-- Jinja2 模板中的内容块（已移除 Flask 相关内容） -->
+    <!-- {% block content %}{% endblock %} -->
+
+    <h1>Close Window Example</h1>
+    <button onclick="closeWindow()">Close Window and Exit</button>
+</body>
+</html>

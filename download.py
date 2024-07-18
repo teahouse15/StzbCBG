@@ -12,11 +12,11 @@ logger = logging.getLogger(__name__)
 SKIN_LATEST = 261
 HERO_LATEST = 730
 
-SKIN_MEDIUM_PATH = 'res/cards/medium/skin/'
-HERO_MEDIUM_PATH = 'res/cards/medium/hero/'
+SKIN_MEDIUM_PATH = 'static/res/cards/medium/skin/'
+HERO_MEDIUM_PATH = 'static/res/cards/medium/hero/'
 
-SKIN_WATERMARK_PATH = 'res/cards/watermark/skin/'
-HERO_WATERMARK_PATH = 'res/cards/watermark/hero/'
+SKIN_WATERMARK_PATH = 'static/res/cards/watermark/skin/'
+HERO_WATERMARK_PATH = 'static/res/cards/watermark/hero/'
 
 SKIN_MEDIUM_URL = 'https://cbg-stzb.res.netease.com/game_res/cards/cut/card_medium_110'
 HERO_MEDIUM_URL = 'https://cbg-stzb.res.netease.com/game_res/cards/cut/card_medium_100'

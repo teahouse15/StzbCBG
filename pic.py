@@ -12,7 +12,7 @@ class MainWindow(QMainWindow):
         self.scene = QGraphicsScene(self)
 
         # 加载图片并添加到场景
-        pixmap = QPixmap("res/cards/medium/hero/card_medium_100003.jpg")  # 替换为图片路径
+        pixmap = QPixmap("static/res/cards/medium/hero/card_medium_100003.jpg")  # 替换为图片路径
         scaled_pixmap = pixmap.scaled(133, 197)  # 设置为130x200大小
         pixmap_item = QGraphicsPixmapItem(scaled_pixmap)
         self.scene.addItem(pixmap_item)
