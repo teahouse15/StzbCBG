@@ -24,6 +24,9 @@ def maximize_window():
     webview.windows[0].toggle_fullscreen()
     return '', 204
 
+def test():
+    return 200
+
 
 if __name__ == '__main__':
     import threading
