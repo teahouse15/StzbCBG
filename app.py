@@ -6,25 +6,27 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('main.html')
+    return render_template('index.html')
+
 
 @app.route('/close_window', methods=['POST'])
 def close_window():
-    # 在这里处理关闭窗口和结束进程的操作
-    os.kill(os.getpid(), 9)  # 结束进程的示例方法，可根据实际情况调整
+    os.kill(os.getpid(), 9)
     return '', 204
 
-@app.route('/get_pic', methods=['GET'])
-def get_pic():
-    # 在这里处理关闭窗口和结束进程的操作
-    return '101', 2040
+@app.route('/minimize_window', methods=['POST'])
+def minimize_window():
+    webview.windows[0].minimize()
+    return '', 204
+
+@app.route('/maximize_window', methods=['POST'])
+def maximize_window():
+    webview.windows[0].toggle_fullscreen()
+    return '', 204
 
 
 if __name__ == '__main__':
-    # Start Flask app in a separate thread
     import threading
     threading.Thread(target=app.run, kwargs={'debug': False}).start()
-
-    # Open a webview window to display Flask app
-    webview.create_window("My Flask App", "http://127.0.0.1:5000", height=800, width=1100, frameless=True)
+    webview.create_window("My Flask App", "http://127.0.0.1:5000", frameless=True)
     webview.start()

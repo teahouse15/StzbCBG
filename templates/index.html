@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Custom Title Bar</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+        #title-bar {
+            height: 30px;
+            background: #333;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 10px;
+        }
+        #title-bar .title {
+            flex-grow: 1;
+        }
+        #title-bar .buttons {
+            display: flex;
+        }
+        #title-bar .buttons button {
+            background: none;
+            border: none;
+            color: white;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+        }
+    </style>
+    <script>
+        function closeWindow() {
+            fetch('/close_window', { method: 'POST' });
+        }
+        function minimizeWindow() {
+            fetch('/minimize_window', { method: 'POST' });
+        }
+        function maximizeWindow() {
+            fetch('/maximize_window', { method: 'POST' });
+        }
+    </script>
+</head>
+<body>
+    <div id="title-bar">
+        <div class="title">My Flask App</div>
+        <div class="buttons">
+            <button onclick="minimizeWindow()">—</button>
+            <button onclick="maximizeWindow()">⬜</button>
+            <button onclick="closeWindow()">✕</button>
+        </div>
+    </div>
+</body>
+</html>
