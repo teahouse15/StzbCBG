@@ -32,6 +32,9 @@
             height: 30px;
             cursor: pointer;
         }
+        #content {
+            height: calc(100% - 30px);
+        }
     </style>
     <script>
         function closeWindow() {
@@ -53,6 +56,8 @@
             <button onclick="maximizeWindow()">⬜</button>
             <button onclick="closeWindow()">✕</button>
         </div>
+    </div>
+    <div id="content">
     </div>
 </body>
 </html>

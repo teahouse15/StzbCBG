@@ -1,13 +1,12 @@
 from flask import Flask, render_template
-import webview
 import os
+import webview
 
 app = Flask(__name__)
 
 @app.route('/')
 def index():
     return render_template('index.html')
-
 
 @app.route('/close_window', methods=['POST'])
 def close_window():
@@ -23,9 +22,6 @@ def minimize_window():
 def maximize_window():
     webview.windows[0].toggle_fullscreen()
     return '', 204
-
-def test():
-    return 200
 
 
 if __name__ == '__main__':

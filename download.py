@@ -4,7 +4,8 @@ import logging
 
 
 # 对logger进行配置——日志等级&输出格式
-logging.basicConfig(level=logging.DEBUG, format="[%(asctime)s] - [%(levelname)s] - %(message)s",
+logging.basicConfig(level=logging.DEBUG, format="[%(asctime)s] - [%(filename)s]:[%(lineno)d] - [%(levelname)s]"
+                                                " - %(message)s",
                     datefmt="%Y-%m-%d %H:%M:%S")
 
 logger = logging.getLogger(__name__)
@@ -12,11 +13,11 @@ logger = logging.getLogger(__name__)
 SKIN_LATEST = 261
 HERO_LATEST = 730
 
-SKIN_MEDIUM_PATH = 'static/res/cards/medium/skin/'
-HERO_MEDIUM_PATH = 'static/res/cards/medium/hero/'
+SKIN_MEDIUM_PATH = 'res/cards/medium/skin/'
+HERO_MEDIUM_PATH = 'res/cards/medium/hero/'
 
-SKIN_WATERMARK_PATH = 'static/res/cards/watermark/skin/'
-HERO_WATERMARK_PATH = 'static/res/cards/watermark/hero/'
+SKIN_WATERMARK_PATH = 'res/cards/watermark/skin/'
+HERO_WATERMARK_PATH = 'res/cards/watermark/hero/'
 
 SKIN_MEDIUM_URL = 'https://cbg-stzb.res.netease.com/game_res/cards/cut/card_medium_110'
 HERO_MEDIUM_URL = 'https://cbg-stzb.res.netease.com/game_res/cards/cut/card_medium_100'
@@ -65,3 +66,5 @@ def download_hero_pic():
 
 if __name__ == '__main__':
     dir_check()
+    download_hero_pic()
+    download_skin_pic()
