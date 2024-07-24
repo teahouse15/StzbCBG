@@ -36,6 +36,8 @@
             height: calc(100% - 30px);
         }
     </style>
+
+    <link rel="stylesheet" href="/static/fontawesome-free-6.6.0/css/all.min.css" />
     <script>
         function closeWindow() {
             fetch('/close_window', { method: 'POST' });
@@ -49,15 +51,18 @@
     </script>
 </head>
 <body>
+
     <div id="title-bar">
-        <div class="title">My Flask App</div>
-        <div class="buttons">
-            <button onclick="minimizeWindow()">—</button>
-            <button onclick="maximizeWindow()">⬜</button>
-            <button onclick="closeWindow()">✕</button>
-        </div>
+        {% include 'header.html' %}
+    </div>
+
+    <div>
+        {% include 'nav.html' %}
+
+        {% include 'content.html' %}
     </div>
     <div id="content">
     </div>
+
 </body>
 </html>
