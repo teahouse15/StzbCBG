@@ -9,35 +9,12 @@
             padding: 0;
             overflow: hidden;
         }
-        #title-bar {
-            height: 30px;
-            background: #333;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 10px;
-        }
-        #title-bar .title {
-            flex-grow: 1;
-        }
-        #title-bar .buttons {
-            display: flex;
-        }
-        #title-bar .buttons button {
-            background: none;
-            border: none;
-            color: white;
-            width: 30px;
-            height: 30px;
-            cursor: pointer;
-        }
-        #content {
-            height: calc(100% - 30px);
-        }
+
+
     </style>
 
     <link rel="stylesheet" href="/static/fontawesome-free-6.6.0/css/all.min.css" />
+    <link rel="stylesheet" href="/static/css/main.css" />
     <script>
         function closeWindow() {
             fetch('/close_window', { method: 'POST' });
@@ -56,12 +33,10 @@
         {% include 'header.html' %}
     </div>
 
-    <div>
+    <div id="content">
         {% include 'nav.html' %}
 
         {% include 'content.html' %}
-    </div>
-    <div id="content">
     </div>
 
 </body>
