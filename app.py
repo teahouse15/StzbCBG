@@ -27,5 +27,7 @@ def maximize_window():
 if __name__ == '__main__':
     import threading
     threading.Thread(target=app.run, kwargs={'debug': False}).start()
-    webview.create_window("My Flask App", "http://127.0.0.1:5000", frameless=True, width=1100, height=800)
+    # webview.create_window("My Flask App", "http://localhost:5000", frameless=True, width=1100, height=800)
+    # frameless窗口头 resizable不可修改
+    webview.create_window("My Flask App", "http://localhost:5000", frameless=False, resizable=True, width=1100, height=800)
     webview.start()
