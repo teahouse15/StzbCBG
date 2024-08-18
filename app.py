@@ -6,7 +6,19 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index2.html')
+    return render_template('index.html')
+
+@app.route('/header')
+def header():
+    return render_template('header.html')
+
+@app.route('/menu')
+def menu():
+    return render_template('menu.html')
+
+@app.route('/role-list')
+def role_list():
+    return render_template('role-list.html')
 
 @app.route('/close_window', methods=['POST'])
 def close_window():

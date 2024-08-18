@@ -125,6 +125,7 @@ def get_hero_list(hero_list):
     return s2_hero_list, s3_hero_list, xp_hero_list, sp_hero_list, nu_hero_list
 
 
+# 账号武将信息
 def request_account_information(url):
     ordersn = get_account_ordersn(url)
     data = {
