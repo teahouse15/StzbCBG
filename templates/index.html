@@ -421,8 +421,8 @@
     }
 
     function confirmInput() {
-        const inputData = $('#inputField').val();
-        $.post('/get_g_info', {inputData: inputData}, function (response) {
+        const url = $('#inputField').val();
+        $.post('/get_account_info', {url: url}, function (response) {
 
         });
     }

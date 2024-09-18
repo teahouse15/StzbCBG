@@ -3,8 +3,6 @@ from urllib.parse import urlparse
 
 import requests
 import json
-
-import testtea
 from define import Hero, Gear
 
 CORE_HERO = ['马超', '吕布',]
@@ -135,5 +133,7 @@ def request_account_information(url):
     response = requests.post('https://stzb.cbg.163.com/cgi/api/get_equip_detail', data=data)
     account_total = json.loads(response.text)['equip']
     account_information = json.loads(account_total['equip_desc'])
+    del account_total['equip_desc']
     hero_list = account_information['card']
+    del account_information['card']
     return account_total, account_information, hero_list
