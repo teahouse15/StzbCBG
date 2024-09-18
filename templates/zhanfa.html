@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>战法界面</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .nav-tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+        .nav-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .nav-tab.active {
+            color: #ff4d4f;
+            border-bottom: 2px solid #ff4d4f;
+        }
+        .sub-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        .sub-tab {
+            padding: 5px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 1px solid #d9d9d9;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+        .sub-tab.active {
+            background-color: #ff4d4f;
+            color: white;
+            border-color: #ff4d4f;
+        }
+        .stats {
+            display: flex;
+            margin-bottom: 20px;
+            color: #ff4d4f;
+            font-size: 14px;
+        }
+        .stats div {
+            margin-right: 20px;
+        }
+        .tactics-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+        .tactic-item {
+            text-align: center;
+        }
+        .tactic-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 5px;
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+        .tactic-grade {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+        .grade-s { background-color: #8e44ad; }
+        .grade-a { background-color: #3498db; }
+        .grade-b { background-color: #27ae60; }
+        .grade-c { background-color: #e67e22; }
+        .tactic-name {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="nav-tabs">
+            <div class="nav-tab">武将</div>
+            <div class="nav-tab">武将扩展</div>
+            <div class="nav-tab active">战法</div>
+            <div class="nav-tab">宝物</div>
+            <div class="nav-tab">典藏典籍</div>
+            <div class="nav-tab">角色招募</div>
+            <div class="nav-tab">其他</div>
+        </div>
+        <div class="sub-tabs">
+            <div class="sub-tab active">全部</div>
+            <div class="sub-tab">指挥</div>
+            <div class="sub-tab">主动</div>
+            <div class="sub-tab">追击</div>
+            <div class="sub-tab">被动</div>
+        </div>
+        <div class="stats">
+            <div>106 总战法数</div>
+            <div>106 已研究</div>
+        </div>
+        <div class="tactics-grid" id="tacticsGrid"></div>
+    </div>
+
+    <script>
+        const tactics = [
+            { name: "先驱突击", grade: "A" },
+            { name: "大赏三军", grade: "S" },
+            { name: "战必断金", grade: "S" },
+            { name: "重整旗鼓", grade: "S" },
+            { name: "形兵之极", grade: "B" },
+            { name: "一夫当关", grade: "A" },
+            { name: "勤力同心", grade: "A" },
+            { name: "誓阵督战", grade: "A" },
+            { name: "众谋不解", grade: "S" },
+            { name: "避其锋芒", grade: "S" },
+            { name: "共欢戚世", grade: "A" },
+            { name: "反计之策", grade: "S" },
+            { name: "悬权而动", grade: "A" },
+            { name: "计倚近远", grade: "A" },
+            { name: "兵贵神速", grade: "C" }
+        ];
+
+        function createTacticElement(tactic) {
+            return `
+                <div class="tactic-item">
+                    <div class="tactic-icon" style="background-image: url('https://via.placeholder.com/80');">
+                        <div class="tactic-grade grade-${tactic.grade.toLowerCase()}">${tactic.grade}</div>
+                    </div>
+                    <div class="tactic-name">${tactic.name}</div>
+                </div>
+            `;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const grid = document.getElementById('tacticsGrid');
+            tactics.forEach(tactic => {
+                grid.innerHTML += createTacticElement(tactic);
+            });
+        });
+    </script>
+</body>
+</html>

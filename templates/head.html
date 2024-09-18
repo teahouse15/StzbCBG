@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>征服赛季 X3999</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        .header {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .badge {
+            background-color: #ff4d4f;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .status {
+            color: #52c41a;
+            font-size: 14px;
+        }
+        .price {
+            color: #ff4d4f;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .stats {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        .highlight {
+            color: #ff4d4f;
+            font-weight: bold;
+        }
+        .timer {
+            font-size: 14px;
+            color: #666;
+        }
+        .collectors {
+            float: right;
+            font-size: 14px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="title">征服赛季 X3999 百业争鸣</div>
+            <div class="badges">
+                <span class="badge">可转入备区</span>
+                <span class="badge">免费改名</span>
+                <span class="status">上架中</span>
+            </div>
+            <div class="price">¥388</div>
+            <div class="stats">
+                50张五星武将卡 106个战法 22个宝物
+                <br>
+                <span class="highlight">2个绝版武将</span>
+            </div>
+            <div class="timer" id="timer">出售剩余时间: 4天2时</div>
+            <div class="collectors">5人收藏</div>
+        </div>
+    </div>
+
+    <script>
+        function updateTimer() {
+            const timerElement = document.getElementById('timer');
+            let days = 4;
+            let hours = 2;
+            let minutes = 0;
+
+            const interval = setInterval(() => {
+                if (minutes > 0) {
+                    minutes--;
+                } else {
+                    if (hours > 0) {
+                        hours--;
+                        minutes = 59;
+                    } else {
+                        if (days > 0) {
+                            days--;
+                            hours = 23;
+                            minutes = 59;
+                        } else {
+                            clearInterval(interval);
+                            timerElement.textContent = '出售已结束';
+                            return;
+                        }
+                    }
+                }
+                timerElement.textContent = `出售剩余时间: ${days}天${hours}时${minutes}分`;
+            }, 60000); // Update every minute
+        }
+
+        document.addEventListener('DOMContentLoaded', updateTimer);
+    </script>
+</body>
+</html>

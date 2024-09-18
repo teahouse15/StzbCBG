@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色选择界面</title>
+    <style>
+        body {
+            font-family: 'Microsoft YaHei', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 200px;
+            background-color: #f0f0f0;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-top: 0;
+        }
+
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .sidebar li:hover {
+            background-color: #e0e0e0;
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto 20px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+
+        .header {
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+        }
+
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .badge {
+            background-color: #ff4d4f;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .status {
+            color: #52c41a;
+            font-size: 14px;
+        }
+
+        .price {
+            color: #ff4d4f;
+            font-size: 28px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stats {
+            display: flex;
+            margin-bottom: 20px;
+            color: #ff4d4f;
+            font-size: 14px;
+        }
+
+        .stats div {
+            margin-right: 20px;
+        }
+
+        .highlight {
+            color: #ff4d4f;
+            font-weight: bold;
+        }
+
+        .timer {
+            font-size: 14px;
+            color: #666;
+        }
+
+        .collectors {
+            float: right;
+            font-size: 14px;
+            color: #666;
+        }
+
+        .nav-tabs {
+            display: flex;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+
+        .nav-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .nav-tab.active {
+            color: white;
+            background-color: #ff4d4f;
+        }
+
+        .sub-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .sub-tab {
+            padding: 5px 15px;
+            margin-right: 10px;
+            cursor: pointer;
+            border: 1px solid #d9d9d9;
+            border-radius: 20px;
+            font-size: 14px;
+        }
+
+        .sub-tab.active {
+            background-color: #ff4d4f;
+            color: white;
+            border-color: #ff4d4f;
+        }
+
+        .generals-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .general-card {
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .general-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .general-info {
+            padding: 10px;
+            text-align: center;
+        }
+
+        .general-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .general-stars {
+            color: gold;
+        }
+
+        .general-faction {
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .input-section {
+            margin-bottom: 20px;
+        }
+
+        .input-section input {
+            padding: 5px;
+            margin-right: 10px;
+            border: 1px solid #d9d9d9;
+            border-radius: 4px;
+        }
+
+        .input-section button {
+            padding: 5px 10px;
+            background-color: #ff4d4f;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .input-section button:hover {
+            background-color: #ff7875;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .tactics-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+        }
+
+        .tactic-item {
+            text-align: center;
+        }
+
+        .tactic-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin-bottom: 5px;
+            position: relative;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .tactic-grade {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+
+        .grade-s {
+            background-color: #8e44ad;
+        }
+
+        .grade-a {
+            background-color: #3498db;
+        }
+
+        .grade-b {
+            background-color: #27ae60;
+        }
+
+        .grade-c {
+            background-color: #e67e22;
+        }
+
+        .tactic-name {
+            font-size: 12px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <h2>页面选择</h2>
+    <ul>
+        <li>角色</li>
+        <li>物品</li>
+        <li>设置</li>
+    </ul>
+</div>
+<div class="main-content">
+    <div class="container">
+        <div class="input-section">
+            <input type="text" id="inputField" placeholder="输入内容">
+            <button onclick="confirmInput()">确认</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <div class="title">征服赛季 X3999 百业争鸣</div>
+            <div class="badges">
+                <span class="badge">可转入备区</span>
+                <span class="badge">免费改名</span>
+                <span class="status">上架中</span>
+            </div>
+            <div class="price">¥388</div>
+            <div class="stats">
+                50张五星武将卡 106个战法 22个宝物
+                <br>
+                <span class="highlight">2个绝版武将</span>
+            </div>
+            <div class="timer" id="timer">出售剩余时间: 4天2时</div>
+            <div class="collectors">5人收藏</div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="nav-tabs">
+            <div class="nav-tab active" data-tab="generals">武将</div>
+            <div class="nav-tab" data-tab="generals-expansion">武将扩展</div>
+            <div class="nav-tab" data-tab="tactics">战法</div>
+            <div class="nav-tab" data-tab="treasures">宝物</div>
+            <div class="nav-tab" data-tab="collections">典藏典籍</div>
+            <div class="nav-tab" data-tab="recruitment">角色招募</div>
+            <div class="nav-tab" data-tab="others">其他</div>
+        </div>
+        <div id="generalsContent">
+            <div class="sub-tabs">
+                <div class="sub-tab active">赛季</div>
+                <div class="sub-tab">稀有度</div>
+                <div class="sub-tab">武将卡</div>
+                <div class="sub-tab">全阵营(104) ▼</div>
+            </div>
+            <h2>S2</h2>
+            <div class="generals-grid" id="generalsGrid"></div>
+        </div>
+        <div id="tacticsContent" class="hidden">
+            <div class="sub-tabs">
+                <div class="sub-tab active">全部</div>
+                <div class="sub-tab">指挥</div>
+                <div class="sub-tab">主动</div>
+                <div class="sub-tab">追击</div>
+                <div class="sub-tab">被动</div>
+            </div>
+            <div class="stats">
+                <div>106 总战法数</div>
+                <div>106 已研究</div>
+            </div>
+            <div class="tactics-grid" id="tacticsGrid"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const generals = [
+        {name: "庞统", stars: 5, faction: "蜀", image: "https://via.placeholder.com/200x250?text=庞统"},
+        {name: "张横", stars: 5, faction: "群", image: "https://via.placeholder.com/200x250?text=张横"},
+        {name: "李傕", stars: 5, faction: "群", image: "https://via.placeholder.com/200x250?text=李傕"},
+        {name: "马玩", stars: 5, faction: "群", image: "https://via.placeholder.com/200x250?text=马玩"},
+        {name: "杨秋", stars: 5, faction: "群", image: "https://via.placeholder.com/200x250?text=杨秋"},
+        {name: "侯选", stars: 4, faction: "群", image: "https://via.placeholder.com/200x250?text=侯选"},
+        {name: "程银", stars: 4, faction: "群", image: "https://via.placeholder.com/200x250?text=程银"},
+        {name: "成宜", stars: 4, faction: "群", image: "https://via.placeholder.com/200x250?text=成宜"},
+        {name: "梁兴", stars: 4, faction: "群", image: "https://via.placeholder.com/200x250?text=梁兴"}
+    ];
+    const tactics = [
+        {name: "先驱突击", grade: "A"},
+        {name: "大赏三军", grade: "S"},
+        {name: "战必断金", grade: "S"},
+        {name: "重整旗鼓", grade: "S"},
+        {name: "形兵之极", grade: "B"},
+        {name: "一夫当关", grade: "A"},
+        {name: "勤力同心", grade: "A"},
+        {name: "誓阵督战", grade: "A"},
+        {name: "众谋不解", grade: "S"},
+        {name: "避其锋芒", grade: "S"},
+        {name: "共欢戚世", grade: "A"},
+        {name: "反计之策", grade: "S"},
+        {name: "悬权而动", grade: "A"},
+        {name: "计倚近远", grade: "A"},
+        {name: "兵贵神速", grade: "C"}
+    ];
+
+    function createGeneralCard(general) {
+        return `
+                <div class="general-card">
+                    <img src="${general.image}" alt="${general.name}" class="general-image">
+                    <div class="general-faction">${general.faction}</div>
+                    <div class="general-info">
+                        <div class="general-name">${general.name}</div>
+                        <div class="general-stars">${'★'.repeat(general.stars)}</div>
+                    </div>
+                </div>
+            `;
+    }
+
+    function createTacticItem(tactic) {
+        return `
+                <div class="tactic-item">
+                    <div class="tactic-icon">
+                        <div class="tactic-grade grade-${tactic.grade.toLowerCase()}">${tactic.grade}</div>
+                    </div>
+                    <div class="tactic-info">
+                        <div class="tactic-name">${tactic.name}</div>
+                    </div>
+                </div>
+            `;
+    }
+
+    function confirmInput() {
+        const input = document.getElementById('inputField').value;
+        alert('您输入的内容是: ' + input);
+    }
+
+    function updateTimer() {
+        const timerElement = document.getElementById('timer');
+        let days = 4, hours = 2, minutes = 0;
+
+        const interval = setInterval(() => {
+            if (minutes > 0) {
+                minutes--;
+            } else if (hours > 0) {
+                hours--;
+                minutes = 59;
+            } else if (days > 0) {
+                days--;
+                hours = 23;
+                minutes = 59;
+            } else {
+                clearInterval(interval);
+                timerElement.textContent = '出售已结束';
+                return;
+            }
+            timerElement.textContent = `出售剩余时间: ${days}天${hours}时${minutes}分`;
+        }, 60000);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // updateTimer();
+        const generalsGrid = document.getElementById('generalsGrid');
+        const tacticsGrid = document.getElementById('tacticsGrid');
+
+        generals.forEach(general => {
+            generalsGrid.innerHTML += createGeneralCard(general);
+        });
+
+        tactics.forEach(tactic => {
+            tacticsGrid.innerHTML += createTacticItem(tactic);
+        });
+
+
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const generalsContent = document.getElementById('generalsContent');
+        const tacticsContent = document.getElementById('tacticsContent');
+
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                navTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                if (tab.dataset.tab === 'tactics') {
+                    generalsContent.classList.add('hidden');
+                    tacticsContent.classList.remove('hidden');
+                } else {
+                    generalsContent.classList.remove('hidden');
+                    tacticsContent.classList.add('hidden');
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
