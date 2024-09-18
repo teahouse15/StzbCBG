@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>角色选择界面</title>
+    <title>率土之滨</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             font-family: 'Microsoft YaHei', Arial, sans-serif;
@@ -171,7 +172,7 @@
 
         .general-image {
             width: 100%;
-            height: 200px;
+            height: 170px;
             object-fit: cover;
         }
 
@@ -209,6 +210,8 @@
             margin-right: 10px;
             border: 1px solid #d9d9d9;
             border-radius: 4px;
+            width: 700px;
+            height: 30px;
         }
 
         .input-section button {
@@ -357,7 +360,9 @@
             <div class="tactics-grid" id="tacticsGrid"></div>
         </div>
     </div>
+
 </div>
+
 
 <script>
     const generals = [
@@ -416,8 +421,10 @@
     }
 
     function confirmInput() {
-        const input = document.getElementById('inputField').value;
-        alert('您输入的内容是: ' + input);
+        const inputData = $('#inputField').val();
+        $.post('/get_g_info', {inputData: inputData}, function (response) {
+
+        });
     }
 
     function updateTimer() {

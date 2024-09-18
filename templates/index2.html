@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>角色选择界面</title>
+    <style>
+        /* ... (previous styles remain unchanged) ... */
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            overflow: hidden; /* Hide the default scrollbar */
+            position: relative;
+        }
+
+        .scroll-content {
+            height: 100%;
+            overflow-y: scroll;
+            padding-right: 17px; /* Compensate for the scrollbar width */
+            box-sizing: content-box; /* Include padding in the element's total width */
+        }
+
+        /* Hide scrollbar for Chrome, Safari and Opera */
+        .scroll-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Hide scrollbar for IE, Edge and Firefox */
+        .scroll-content {
+            -ms-overflow-style: none; /* IE and Edge */
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .pseudo-scrollbar {
+            width: 8px;
+            background-color: #f0f0f0;
+            position: absolute;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .pseudo-scrollbar:hover {
+            opacity: 1;
+        }
+
+        .pseudo-scrollbar-thumb {
+            width: 100%;
+            background-color: #888;
+            position: absolute;
+            border-radius: 4px;
+        }
+
+        /* ... (rest of the styles remain unchanged) ... */
+    </style>
+</head>
+<body>
+<div class="sidebar">
+    <!-- ... (sidebar content remains unchanged) ... -->
+</div>
+<div class="main-content">
+    <div class="scroll-content">
+        <!-- ... (all previous content goes here) ... -->
+    </div>
+    <div class="pseudo-scrollbar">
+        <div class="pseudo-scrollbar-thumb"></div>
+    </div>
+</div>
+
+<script>
+    // ... (previous JavaScript code remains unchanged) ...
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // ... (previous DOMContentLoaded code remains unchanged) ...
+
+        // Add custom scrollbar functionality
+        const scrollContent = document.querySelector('.scroll-content');
+        const pseudoScrollbar = document.querySelector('.pseudo-scrollbar');
+        const pseudoScrollbarThumb = document.querySelector('.pseudo-scrollbar-thumb');
+
+        function updateScrollbarThumb() {
+            const scrollPercentage = (scrollContent.scrollTop / (scrollContent.scrollHeight - scrollContent.clientHeight)) * 100;
+            const thumbHeight = (scrollContent.clientHeight / scrollContent.scrollHeight) * 100;
+
+            pseudoScrollbarThumb.style.height = `${thumbHeight}%`;
+            pseudoScrollbarThumb.style.top = `${scrollPercentage}%`;
+        }
+
+        scrollContent.addEventListener('scroll', updateScrollbarThumb);
+        window.addEventListener('resize', updateScrollbarThumb);
+
+        // Initial update
+        updateScrollbarThumb();
+
+        // Make the pseudo-scrollbar functional
+        let isDragging = false;
+        let startY;
+        let startScrollTop;
+
+        pseudoScrollbarThumb.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            startY = e.clientY - pseudoScrollbarThumb.offsetTop;
+            startScrollTop = scrollContent.scrollTop;
+        });
+
+        document.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+            const y = e.clientY - pseudoScrollbar.getBoundingClientRect().top;
+            const percentY = y / pseudoScrollbar.clientHeight;
+            scrollContent.scrollTop = percentY * (scrollContent.scrollHeight - scrollContent.clientHeight);
+        });
+
+        document.addEventListener('mouseup', () => {
+            isDragging = false;
+        });
+    });
+</script>
+</body>
+</html>

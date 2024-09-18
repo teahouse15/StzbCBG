@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, request, render_template
 import os
 import webview
 
@@ -8,30 +8,17 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/header')
-def header():
-    return render_template('header.html')
-
-@app.route('/menu')
-def menu():
-    return render_template('menu.html')
-
-@app.route('/role-list')
-def role_list():
-    return render_template('role-list.html')
-
-@app.route('/close_window', methods=['POST'])
-def close_window():
-    # 关闭 webview 窗口
-    webview.windows[0].destroy()
-    os._exit(0)
-    return '', 204
+@app.route('/get_g_info', methods=['POST'])
+def get_game_account_info():
+    input_data = request.form.get('inputData')
+    print(f"Received input: {input_data}")
+    return input_data
 
 if __name__ == '__main__':
     import threading
     threading.Thread(target=app.run, kwargs={'debug': False}).start()
     # webview.create_window("My Flask App", "http://localhost:5000", frameless=True, width=1100, height=800)
     # frameless窗口头 resizable不可修改
-    webview.create_window("My Flask App", "http://localhost:5000", frameless=True, resizable=True, width=1100, height=800)
+    webview.create_window("My Flask App", "http://localhost:5000", resizable=False, width=1200, height=800)
     # 打开开发者工具
-    webview.start(debug=True)
+    webview.start(debug=False)
