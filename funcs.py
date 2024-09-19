@@ -98,29 +98,35 @@ def ma_chao(hero_list):
     return valid_teams, invalid_teams
 
 
-def get_hero_list(hero_list):
+def get_detail_hero_list(hero_list):
     """
     :param hero_list: JSON信息
     :return: tuple(普通武将, XP武将, SP武将)
     """
-    nu_hero_list = []
+    other_hero_list = []
     xp_hero_list = []
-    sp_hero_list = []
     s2_hero_list = []
     s3_hero_list = []
     for hero in hero_list:
+        country_list = ['汉', '魏', '蜀', '吴', '群', '晋']
+        hero['country'] = country_list[int(hero['country'])-1]
         if hero['quality'] == 5:
             if hero['season'] == 'SP':
-                sp_hero_list.append(hero['name'])
+                other_hero_list.append(hero)
             elif hero['season'] == 'XP':
-                xp_hero_list.append(hero['name'])
+                xp_hero_list.append(hero)
             elif hero['season'] == 'S2':
-                s2_hero_list.append(hero['name'])
+                s2_hero_list.append(hero)
             elif hero['season'] == 'S3':
-                s3_hero_list.append(hero['name'])
+                s3_hero_list.append(hero)
             else:
-                nu_hero_list.append(hero['name'])
-    return s2_hero_list, s3_hero_list, xp_hero_list, sp_hero_list, nu_hero_list
+                other_hero_list.append(hero)
+    return {
+        's2': s2_hero_list,
+        's3': s3_hero_list,
+        'xp': xp_hero_list,
+        'other': other_hero_list
+    }
 
 
 # 账号武将信息
@@ -134,6 +140,33 @@ def request_account_information(url):
     account_total = json.loads(response.text)['equip']
     account_information = json.loads(account_total['equip_desc'])
     del account_total['equip_desc']
+    skin_info = account_information['dynamic_icon']
+    del account_information['dynamic_icon']
+    skill_info = account_information['skill']
+    del account_information['skill']
+    gear_info = account_information['gear']
+    del account_information['gear']
     hero_list = account_information['card']
     del account_information['card']
-    return account_total, account_information, hero_list
+    return account_total, hero_list, skin_info, skill_info, gear_info
+
+def get_account_information(account_total):
+    """
+        'area_name': '征服赛季',
+        'server_name': 'X3999 百业争鸣',
+        'status_desc': '上架中',
+        'price': 38800,
+        'desc_sumup_short': '50张五星武将卡 106个战法 22个宝物',
+        'collect_num': 9,
+        'highlights': ['2个绝版武将'],
+    """
+    info = {
+        'area_name': account_total['area_name'],
+        'server_name': account_total['server_name'],
+        'status_desc': account_total['status_desc'],
+        'price': account_total['price'],
+        'desc_sumup_short': account_total['desc_sumup_short'],
+        'collect_num': account_total['collect_num'],
+        'highlights': account_total['highlights']
+    }
+    return info
