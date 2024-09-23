@@ -1,0 +1,170 @@
+    <div class="header">
+        <div class="title">{{ data['info']['area_name'] }} {{ data['info']['server_name'] }}</div>
+        <div class="badges">
+            <span class="badge">可转入备区</span>
+            <span class="badge">免费改名</span>
+            <span class="status">{{ data['info']['status_desc'] }}</span>
+            <span class="collectors">{{ data['info']['collect_num'] }}人收藏</span>
+        </div>
+        <div class="price">¥{{ data['info']['price'] | divide_by_100 }}</div>
+        <div class="stats">
+            {{ data['info']['desc_sumup_short'] }}
+            <div></div>
+            <span class="highlight">
+                {% for highlight in data['info']['highlights'] %}
+                    {{ highlight }} &nbsp;&nbsp;
+                {% endfor %}
+            </span>
+
+        </div>
+        <div class="stats">
+            {{ data['gear_info']['tenure'] }}
+        </div>
+    </div>
+
+    <div class="nav-tabs">
+        <div class="nav-tab active" data-tab="generals">武将</div>
+        <div class="nav-tab" data-tab="generals-expansion">武将扩展</div>
+        <div class="nav-tab" data-tab="tactics">战法</div>
+        <div class="nav-tab" data-tab="treasures">宝物</div>
+        <div class="nav-tab" data-tab="collections">典藏典籍</div>
+        <div class="nav-tab" data-tab="others">其他</div>
+    </div>
+    <div id="generalsContent">
+        <div class="sub-tabs">
+            <div class="sub-tab active">赛季</div>
+<!--            <div class="sub-tab">稀有度</div>-->
+<!--            <div class="sub-tab">武将卡</div>-->
+            <div class="sub-tab">全阵营(104) ▼</div>
+        </div>
+        {% if data['hero_info']['s2'] %}
+            <h2>S2</h2>
+            <div class="generals-grid">
+                {% for general in data['hero_info']['s2'] %}
+                    <div class="general-card">
+                        <img src="res/cards/medium/hero/card_medium_{{ general['hero_id'] }}.jpg" alt="${general.name}" class="general-image">
+                        <div class="general-faction">{{ general['country'] }}</div>
+                        <div class="general-info">
+                            <div class="general-name">{{ general['name'] }}</div>
+                            <div class="general-stars">
+                                {% for _ in range(general.advance_num) %}
+                                    <span class="star red">★</span>
+                                {% endfor %}
+
+                                <!-- 显示灰色星星（剩余未获得的星级） -->
+                                {% for _ in range(general.quality - general.advance_num) %}
+                                    <span class="star gold">★</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if data['hero_info']['s3'] %}
+            <h2>S3</h2>
+            <div class="generals-grid">
+                {% for general in data['hero_info']['s3'] %}
+                    <div class="general-card">
+                        <img src="res/cards/medium/hero/card_medium_{{ general['hero_id'] }}.jpg" alt="${general.name}" class="general-image">
+                        <div class="general-faction">{{ general['country'] }}</div>
+                        <div class="general-info">
+                            <div class="general-name">{{ general['name'] }}</div>
+                            <div class="general-stars">
+                                {% for _ in range(general.advance_num) %}
+                                    <span class="star red">★</span>
+                                {% endfor %}
+
+                                <!-- 显示灰色星星（剩余未获得的星级） -->
+                                {% for _ in range(general.quality - general.advance_num) %}
+                                    <span class="star gold">★</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if data['hero_info']['xp'] %}
+            <h2>XP</h2>
+            <div class="generals-grid">
+                {% for general in data['hero_info']['xp'] %}
+                    <div class="general-card">
+                        <img src="res/cards/medium/hero/card_medium_{{ general['hero_id'] }}.jpg" alt="${general.name}" class="general-image">
+                        <div class="general-faction">{{ general['country'] }}</div>
+                        <div class="general-info">
+                            <div class="general-name">{{ general['name'] }}</div>
+                            <div class="general-stars">
+                                {% for _ in range(general.advance_num) %}
+                                    <span class="star red">★</span>
+                                {% endfor %}
+
+                                <!-- 显示灰色星星（剩余未获得的星级） -->
+                                {% for _ in range(general.quality - general.advance_num) %}
+                                    <span class="star gold">★</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+        {% if data['hero_info']['other'] %}
+            <h2>其他</h2>
+            <div class="generals-grid">
+                {% for general in data['hero_info']['other'] %}
+                    <div class="general-card">
+                        <img src="res/cards/medium/hero/card_medium_{{ general['icon_hero_id'] }}.jpg" class="general-image">
+                        <div class="general-faction">{{ general['country'] }}</div>
+                        <div class="general-info">
+                            <div class="general-name">{{ general['name'] }}</div>
+                            <div class="general-stars">
+                                {% for _ in range(general.advance_num) %}
+                                    <span class="star red">★</span>
+                                {% endfor %}
+                                {% for _ in range(general.quality - general.advance_num) %}
+                                    <span class="star gold">★</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+    </div>
+    <div id="tacticsContent" class="hidden">
+        <div class="sub-tabs">
+            <div class="sub-tab active">全部</div>
+            <div class="sub-tab">指挥</div>
+            <div class="sub-tab">主动</div>
+            <div class="sub-tab">追击</div>
+            <div class="sub-tab">被动</div>
+        </div>
+        <div class="stats">
+            <div>106 总战法数</div>
+            <div>106 已研究</div>
+        </div>
+        <div class="tactics-grid" id="tacticsGrid"></div>
+    </div>
+
+    <script type="text/javascript">
+        const navTabs = document.querySelectorAll('.nav-tab');
+        const generalsContent = document.getElementById('generalsContent');
+        const tacticsContent = document.getElementById('tacticsContent');
+
+        navTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                navTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                if (tab.dataset.tab === 'tactics') {
+                    generalsContent.classList.add('hidden');
+                    tacticsContent.classList.remove('hidden');
+                } else {
+                    generalsContent.classList.remove('hidden');
+                    tacticsContent.classList.add('hidden');
+                }
+            });
+        });
+    </script>
