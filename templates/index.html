@@ -285,20 +285,42 @@
             font-size: 12px;
             margin-top: 5px;
         }
-        .red { color: red; }
-        .gold { color: gold; }
+
+        .red {
+            color: red;
+        }
+
+        .gold {
+            color: gold;
+        }
+
+        .sidebar li {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .sidebar li:hover {
+            background-color: #e0e0e0;
+        }
+
+        .sidebar li.active {
+            background-color: #ff4d4f;
+            color: white;
+        }
+
     </style>
 </head>
 <body>
 <div class="sidebar">
     <h2>页面选择</h2>
     <ul>
-        <li>角色</li>
-        <li>物品</li>
-        <li>设置</li>
+        <li class="sidebar-item" data-page="character">角色</li>
+        <li class="sidebar-item" data-page="item">物品</li>
+        <li class="sidebar-item active" data-page="account">账户</li>
     </ul>
 </div>
-<div class="main-content">
+<div class="main-content hidden" id="character-page">
     <div class="container">
         <div class="input-section">
             <input type="text" id="inputField" placeholder="输入账号网址">
@@ -312,35 +334,55 @@
     </div>
 </div>
 
+<div class="main-content hidden" id="item-page">
+    <div class="container">
+        <h2>物品页面</h2>
+        <div class="input-section">
+            <input type="text" id="itemInput" placeholder="输入物品网址">
+            <button onclick="search('item')">查询物品</button>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="main-content" id="account-page">
+    <div class="container">
+        <div class="iframe-container">
+            <iframe id="accountIframe" src="https://stzb.cbg.163.com/cgi/mweb/show_login" title="账户详情"></iframe>
+        </div>
+    </div>
+</div>
 
 <script>
-    const generals = [
-        {name: "庞统", stars: 5, faction: "蜀", image: "https://via.placeholder.com/200x250?text=庞统"},
-    ];
-    const tactics = [
-        {name: "先驱突击", grade: "A"},
-    ];
+    $(document).ready(function () {
+        $('.sidebar-item').click(function () {
+            // Remove active class from all items
+            $('.sidebar-item').removeClass('active');
 
-    function createTacticItem(tactic) {
-        return `
-                <div class="tactic-item">
-                    <div class="tactic-icon">
-                        <div class="tactic-grade grade-${tactic.grade.toLowerCase()}">${tactic.grade}</div>
-                    </div>
-                    <div class="tactic-info">
-                        <div class="tactic-name">${tactic.name}</div>
-                    </div>
-                </div>
-            `;
-    }
+            // Add active class to clicked item
+            $(this).addClass('active');
 
-    function search() {
-        const url = $('#inputField').val();
-        $.get('/load-info', {url: url}, function (data) {
+            // Get the page data attribute
+            const page = $(this).data('page');
+
+            // Hide all pages
+            $('.main-content').addClass('hidden');
+
+            // Show the selected page
+            $(`#${page}-page`).removeClass('hidden');
+
+            // Hide info and desc containers
+            $('#info, #desc').addClass('hidden');
+        });
+    });
+
+    function search(type) {
+        const url = $(`#${type}Input`).val();
+        $.get('/load-info', {url: url, type: type}, function (data) {
             const $html = $(data);
             const $header = $html.get(0);
             const $remainingContent = $html.slice(1,7);
-
 
             $("#info").html($header);
             $('#info').removeClass('hidden').fadeIn(1000);
